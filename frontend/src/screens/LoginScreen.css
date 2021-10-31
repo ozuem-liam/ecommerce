@@ -1,0 +1,47 @@
+.log-in-box {
+    width: 50%;
+    position: absolute;
+    height: 20%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--mainBlue);
+  }
+  
+  .text-box {
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid var(--mainBlue);
+  }
+  
+  .text-box input {
+    border: none;
+    outline: none;
+    background: none;
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .log-in-btn {
+    position: absolute;
+    top: 52%;
+    left: 25%;
+  }
+  
+  .forget-passsword a {
+    font-family: sans-serif;
+    text-decoration: none;
+    color: var(--mainBlue);
+    position: absolute;
+    font-weight: bolder;
+    font-size: 16px;
+    top: 52%;
+    left: 57%;
+  }
+  
+  .forget-passsword a:hover {
+    color: #3b3a08;
+    transition-delay: -5s;
+  }

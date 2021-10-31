@@ -1,4 +1,6 @@
+const { getMaxListeners } = require("../models/Product");
 const Product = require("../models/Product");
+const transporter = require("../utils/EmailClient");
 
 // Public Controller
 const getAllProducts = async (req, res) => {
@@ -16,82 +18,36 @@ const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
 
-      res.status(200).json(product);
+    res.status(200).json(product);
   } catch (error) {
     res.status(404).json({ messgae: "Server Error", error: error });
   }
 };
 
-
-
-
-
-// Admin Controller
-
-const postProduct = async (req, res) => {
+const sendProduct = (req, res) => {
   try {
-    const product = new Product({
-      name: req.body.name,
-      description: req.body.description,
-      price: req.body.price,
-      countInStock: req.body.countInStock,
-      image: req.file.path,
-    });
-    product.save();
-    return res.status(201).json({
-        message: "Created product successfully",
-        createdProduct: {
-          name: result.name,
-          price: result.price,
-          description: result.description,
-          countInStock: result.countInStock,
-          request: {
-            type: "POST",
-            url: "http://localhost:5000/api/products/" + result._id,
-          },
-        },
-      });
+    const data = req.body;
+    const mailOption = {
+      from: "ORDER REQUEST <ozuemdw@gmail.com>",
+      to: "testwilliamscode@gmail.com",
+      subject: "YOU HAVE ORDER REQUEST",
+      text: `<h3>${JSON.stringify(data)}</h3>`,
+    }
+    transporter.sendMail(mailOption, (err, data) => {
+      if (err) {
+        return err
+      } else {
+        return data
+      }
+    })
+    res.status(200).send("Email sent Successfully");
   } catch (error) {
-    console.log(error);
-   return res.status(500).json({ messgae: "Server Error", error: error });
-  }
-};
-
-const updateProductById = async (req, res) => {
-  try {
-    const product = await Product.findByIdAndUpdate(req.body.id);
-
-    res.status(200).json({
-        message: "Product updated",
-        product: product
-    });
-  } catch (error) {
-    res.status(500).json({ messgae: "Server Error", error: error });
-  }
-};
-
-const deleteProductById = (req, res) => {
-  try {
-    Product.remove(req.params.id)
-    .exec()
-    .then(result => {
-        res.status(200).json({
-            message: "Product deleted",
-            request: {
-                type: 'DELETE',
-                url: "http://localhost:5000/api/products"
-            }
-        })
-    });
-  } catch (error) {
-    res.status(500).json({ messgae: "Server Error", error: error });
+    res.status(404).json({ messgae: "Server Error", error: error });
   }
 };
 
 module.exports = {
   getAllProducts,
   getProductById,
-  postProduct,
-  updateProductById,
-  deleteProductById,
+  sendProduct,
 };
