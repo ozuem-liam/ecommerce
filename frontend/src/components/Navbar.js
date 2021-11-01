@@ -14,7 +14,7 @@ function Navbar({click}) {
         <div className="navbar">
             {/* logo */}
             <div className="navbar_logo">
-                <h2>My Ecommerce Shop</h2>
+                <h2>YOSSIE</h2>
             </div>
 
             {/* links */}

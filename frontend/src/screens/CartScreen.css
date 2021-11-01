@@ -1,3 +1,11 @@
+.form-input {
+  width: 100%;
+  border: 1px solid #171717;
+  border-radius: 0.2rem;
+  height: 30px;
+  padding: 5px;
+  margin: 0;
+}
 .cartscreen {
   display: flex;
   max-width: 1300px;

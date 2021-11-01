@@ -41,6 +41,8 @@ function CartScreen() {
         }
         obj[i] = orderObj;
       }
+      obj["address"] = values.address;
+      obj["number"] = values.number;
       return obj;
     }
     let order = getOrder();
@@ -61,6 +63,20 @@ function CartScreen() {
       setMessage("");
     }, 5000); 
   };
+
+  const [values, setValues] = useState({
+    address: "",
+    number: ""
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
   return (
     <div className="cartscreen">
       <div className="cartscreen_left">
@@ -84,6 +100,41 @@ function CartScreen() {
         <div className="cartscreen_info">
           <p>Subtotal ({getCartCount()}) items</p>
           <p>#{getCartSubTotal().toFixed(2)}</p>
+        </div>
+        <div>
+        <div className="form-inputs">
+          <label htmlFor="address" className="form-label">
+            Address
+          </label>
+          <input
+            id="address"
+            type="text"
+            name="address"
+            className="form-input"
+            placeholder="Enter your address"
+            value={values.address}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-inputs">
+          <label htmlFor="description" className="form-label">
+            Phone number
+          </label>
+          <input
+            id="number"
+            type="text"
+            name="number"
+            className="form-input"
+            placeholder="Enter your phone number"
+            value={values.number}
+            onChange={handleChange}
+          />
+        </div>
+        </div>
+        <div>
+          <h5>Account Name: Yossie</h5>
+          <h5>Account Number: XXXXXXXXXXX</h5>
         </div>
         <div>
           <button type="submit" onClick={sendOrder}>
